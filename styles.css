@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800;900&display=swap');
+*{
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+:root{
+   --white: #E7E3FD;
+   --gray: #b9b5cf;
+   --dark: #0c0435;
+}
+body{
+   width: 100vw;
+   height: 100vh;
+   background: #08041B;
+}
+
+h1{
+   font-size: 3.75rem;
+   color: var(--white);
+}
+
+h4{
+   font-size: 1.5rem;
+   color: var(--white);
+
+}
+
+main{
+   width: inherit;
+   height: inherit;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+section{
+   width: 50%;
+   height: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: 40px;
+}
+
+#colors-container{
+   display: grid;
+   grid-template: 1fr 1fr / 1fr 1fr;
+   gap: 10px;
+   transform: rotate(45deg);
+}
+
+#colors-container > div {
+   width: 120px;
+   height:120px;
+   border-radius: 10px;
+   cursor: pointer;
+   transition: all 300ms ease-in-out;
+}
+
+#green{
+   background: #10ad4f;
+}
+
+.hover-green{
+   background: #2FDE75 !important;
+   box-shadow: inset 0px 7px 30px rgba(255, 249, 249, 0.25) !important;
+   transform: scale(1.05);
+}
+
+#yellow{
+   background: #DCB012;
+}
+
+.hover-yellow{
+   background: #ffe071 !important;
+   box-shadow: inset 0px 7px 30px rgba(255, 249, 249, 0.25) !important;
+   transform: scale(1.05);
+}
+
+
+#blue{
+   background: #098AD3;
+}
+
+.hover-blue{
+   background: #73c3f1 !important;
+   box-shadow: inset 0px 7px 30px rgba(255, 249, 249, 0.25) !important;
+   transform: scale(1.05);
+}
+
+#red{
+   background: #D30939;
+}
+
+.hover-red{
+   background: #fd537b !important;
+   box-shadow: inset 0px 7px 30px rgba(255, 249, 249, 0.25) !important;
+   transform: scale(1.05);
+}
+
+
+
+button{
+   width: 150px;
+   height: 60px;
+   background: var(--white);
+   color: var(--dark);
+   font-weight: 600;
+   cursor: pointer;
+   font-size: 1.5rem;
+   border: none;
+   border-radius: 5px;
+   outline: none;
+   transition: all ease-in-out 300ms;
+}
+
+button:active{
+   transform: scale(0.8);
+}
+
+
+.button-disabled{
+   background: var(--gray);
+   cursor: not-allowed;
+}
+
+h5:first-of-type{
+   font-size: 1.5rem;
+   color: var(--white);
+   margin-bottom: 40px;
+
+}
+
+h5:last-of-type{
+   font-size: 1.5rem;
+   color: #D30939;
+}
