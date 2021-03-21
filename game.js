@@ -1,5 +1,4 @@
 
-
 const d = document
 
 export default class Game {
@@ -7,6 +6,7 @@ export default class Game {
    constructor() {
       this.button = d.querySelector('button')
       this.colors = [...d.querySelectorAll('#colors-container > div ')]
+      this.audio = d.querySelector('audio')
 
 
       this.scoreHTML = d.querySelector('h5:last-of-type')
@@ -26,14 +26,23 @@ export default class Game {
    }
 
 
+
    async activeColor(color) {
+
+      console.log(color)
 
       return new Promise(resolve => {
 
 
          setTimeout(() => color.classList.toggle(`hover-${color.id}`), 200)
 
-         setTimeout(() => resolve(color.classList.toggle(`hover-${color.id}`)), 500)
+         setTimeout(() => {
+
+            this.audio.load()
+            this.audio.play()
+
+            resolve(color.classList.toggle(`hover-${color.id}`))
+         }, 500)
 
       })
 
@@ -43,15 +52,15 @@ export default class Game {
 
       this.isColoring = true
 
-      for (let j = 0; j < Math.round(this.level * 0.5); j++) {
+      const currentColor = this.colors[Math.floor(Math.random() * this.colors.length)]
 
-         const color = this.colors[Math.floor(Math.random() * this.colors.length)]
+      this.aiTurns.push(currentColor.id)
 
-         this.aiTurns.push(color.id)
+      for (const colorTurn of this.aiTurns) {
 
-         await this.activeColor(color)
-
+         await this.activeColor(this.colors.find(color => color.id === colorTurn))
       }
+
 
       this.isColoring = false
 
@@ -62,13 +71,16 @@ export default class Game {
 
       this.playerTurns.push(playerColor)
 
-      if (this.playerTurns.indexOf(playerColor) === this.aiTurns.indexOf(playerColor)) {
+
+      if (this.playerTurns.every((turn, i) => turn === this.aiTurns[i])) {
+
          if (this.playerTurns.length === this.aiTurns.length) {
+            console.log(this.playerTurns, this.aiTurns)
 
             ++this.level
             this.score += this.level ** 2
-            this.aiTurns = []
             this.playerTurns = []
+
 
             this.scoreHTML.textContent = 'Your score is ' + this.score
             this.levelHTML.textContent = 'level ' + this.level
@@ -86,7 +98,7 @@ export default class Game {
 
    async play() {
 
-      this.playing = true
+      this.isPlaying = true
 
 
       this.button.disabled = true
@@ -94,7 +106,7 @@ export default class Game {
 
 
       if (this.level > 1)
-         return setTimeout(async () => await this.#runMemo(), 2000)
+         return setTimeout(async () => await this.#runMemo(), 1000)
 
       await this.#runMemo()
    }
@@ -104,7 +116,8 @@ export default class Game {
       alert('You lost!')
 
       this.level = 1
-      this.playing = false
+      this.levelHTML.textContent = 'level ' + this.level
+      this.isPlaying = false
 
       this.button.disabled = false
       this.button.classList.remove('button-disabled')
